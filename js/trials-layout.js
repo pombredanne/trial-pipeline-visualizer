@@ -4,14 +4,18 @@ import colors from './colors';
 
 class TrialsLayout extends React.Component {
   static propTypes = {
-    trials: React.PropTypes.array.isRequired
+    accounts: React.PropTypes.array.isRequired
   };
+
+  componentWillMount() {
+    console.log("Will mount")
+  }
 
   render() {
     return (
       <div className="TrialsLayout">
         <h1 className="TrialsLayout">
-          {this.props.trials.length}
+          {this._trialCount()}
           {" "}
           Active Trials
         </h1>
@@ -21,12 +25,16 @@ class TrialsLayout extends React.Component {
           <p style={{color: colors.builds}}><span className="Trials__legend-dot" style={{backgroundColor: colors.builds}}></span> Ran a Build</p>
         </div>
         <div className="Trials">
-          {this.props.trials.map(function(trial) {
-            return <Trial key={trial.slug} trial={trial} />
+          {this.props.accounts.map(function(account) {
+            return <Trial key={account.slug} trial={account} />
           })}
         </div>
       </div>
     )
+  }
+
+  _trialCount() {
+    return this.props.accounts.filter((a) => a.state == "trial").length
   }
 };
 

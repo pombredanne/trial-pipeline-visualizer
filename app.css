@@ -84,6 +84,13 @@ h1 {
   text-overflow: ellipsis;
 }
 
+.Trial--state-active .Trial__name {
+  color: #FFCF00;
+}
+.Trial--state-trial_expired .Trial__name {
+  color: #999;
+}
+
 .Trial__chart-label {
   display: flex;
   align-items: center;
@@ -105,8 +112,7 @@ h1 {
 .Trial__id {
   color: white;
   position: absolute;
-  font-size: 8px;
-  font-weight: bold;
+  font-size: 10px;
   color: #888;
   top: 65%;
   left: 0;
