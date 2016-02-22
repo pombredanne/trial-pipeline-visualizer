@@ -42,21 +42,9 @@ class Trial extends React.Component {
         <div className="Trial__name">
           <span>{this.props.trial.name}</span>
         </div>
-        {this._renderTrialDaysLeft()}
+        <div className="Trial__id" style={{ color: this._idColor() }}>{this.props.trial.age}d</div>
       </div>
     )
-  }
-
-  _renderTrialDaysLeft() {
-    if (this.props.trial.state != 'active') {
-      var daysLeft = (14 - this.props.trial.age) * -1;
-      return (
-        <div className="Trial__id" style={{ color: this._idColor() }}>
-          T
-          {daysLeft < 0 ? daysLeft : `+${daysLeft}`}
-        </div>
-      );
-    }
   }
 
   _chartData() {
