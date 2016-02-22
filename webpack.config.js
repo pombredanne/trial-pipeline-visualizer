@@ -1,13 +1,14 @@
 module.exports = {
-  entry: "./js/entry.jsx",
+  entry: "./js/entry.js",
   output: {
-    filename: "app.js"
+    filename: "app.js",
+    publicPath: "/"
   },
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
-        loader: 'babel'
+        test: /\.js$/,
+        loaders: ['babel']
       }
    ]
   }

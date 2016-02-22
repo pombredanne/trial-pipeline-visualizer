@@ -1,7 +1,7 @@
 :root {
   background: #000;
   color: white;
-  font: 14px "SF Compact Text";
+  font: 14px "SF Compact Text", "SF UI Text";
   line-height: 1;
   padding: 20px;
   margin: 0;
@@ -19,7 +19,7 @@ body {
 h1 {
   margin: 0;
   font-size: 21px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
@@ -30,7 +30,7 @@ h1 {
 }
 
 .Trials__legend {
-  margin: .5em 0 1em 0;
+  margin: .5em 0 1.5em 0;
 }
 .Trials__legend p {
   display: inline;

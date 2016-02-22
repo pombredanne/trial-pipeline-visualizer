@@ -1,5 +1,5 @@
 import React from 'react';
-import Trial from './trial.jsx';
+import Trial from './trial';
 import colors from './colors';
 
 class TrialsLayout extends React.Component {

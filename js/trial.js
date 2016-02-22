@@ -1,5 +1,5 @@
 import React from 'react';
-import PieChart from './piechart.jsx';
+import PieChart from './piechart';
 import colors from './colors';
 
 class Trial extends React.Component {
