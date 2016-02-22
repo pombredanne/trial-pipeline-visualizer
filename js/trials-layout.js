@@ -4,28 +4,51 @@ import colors from './colors';
 
 class TrialsLayout extends React.Component {
   static propTypes = {
-    accounts: React.PropTypes.array.isRequired
+    statsUrl: React.PropTypes.string.isRequired,
+    pollSeconds: React.PropTypes.number.isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      accounts: [],
+      fetched: false
+    };
+  }
+
   componentWillMount() {
-    console.log("Will mount")
+    this.fetchStats();
+    this.fetchInterval = setInterval((() => this.fetchStats()), this.props.pollSeconds * 1000);
+  }
+
+  fetchStats() {
+    fetch(this.props.statsUrl).then((response) => {
+      response.json().then((json) => {
+        this.setState({
+          accounts: json.accounts,
+          fetched: true
+        });
+      })
+    })
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.fetchInterval);
   }
 
   render() {
     return (
       <div className="TrialsLayout">
         <h1 className="TrialsLayout">
-          {this._trialCount()}
-          {" "}
-          Active Trials
+          {this._heading()}
         </h1>
         <div className="Trials__legend">
-          <p style={{color: colors.agents}}><span className="Trials__legend-dot" style={{backgroundColor: colors.agents}}></span> Connected Agent</p>
-          <p style={{color: colors.members}}><span className="Trials__legend-dot" style={{backgroundColor: colors.members}}></span> Invited Member</p>
-          <p style={{color: colors.builds}}><span className="Trials__legend-dot" style={{backgroundColor: colors.builds}}></span> Ran a Build</p>
+          <p style={{color: colors.agents}}><span className="Trials__legend-dot" style={{backgroundColor: colors.agents}}></span> Connected an Agent</p>
+          <p style={{color: colors.builds}}><span className="Trials__legend-dot" style={{backgroundColor: colors.builds}}></span> Ran a Passing Build</p>
+          <p style={{color: colors.members}}><span className="Trials__legend-dot" style={{backgroundColor: colors.members}}></span> Invited a Team Member</p>
         </div>
         <div className="Trials">
-          {this.props.accounts.map(function(account) {
+          {this.state.accounts.map(function(account) {
             return <Trial key={account.slug} trial={account} />
           })}
         </div>
@@ -33,8 +56,34 @@ class TrialsLayout extends React.Component {
     )
   }
 
+  _heading() {
+    if (this.state.fetched) {
+      return (
+        <span>
+          {`${this._trialCount()} Trialling`}
+          <span style={{ color:'#666' }}>{" / "}</span>
+          {`${this._upgradeCount()} Upgraded`}
+          <span style={{ color:'#666' }}>{" / "}</span>
+          {`${this._expiredCount()} Expired`}
+        </span>
+      )
+    } else {
+      return (
+        <span>Loading…</span>
+      )
+    }
+  }
+
   _trialCount() {
-    return this.props.accounts.filter((a) => a.state == "trial").length
+    return this.state.accounts.filter((a) => a.state == "trial").length
+  }
+
+  _upgradeCount() {
+    return this.state.accounts.filter((a) => a.state == "active").length
+  }
+
+  _expiredCount() {
+    return this.state.accounts.filter((a) => a.state == "trial_expired").length
   }
 };
 

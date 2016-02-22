@@ -11,16 +11,10 @@ class Trial extends React.Component {
       state: React.PropTypes.string,
       slug: React.PropTypes.string,
       age: React.PropTypes.number,
-      agent_count: React.PropTypes.number,
-      agent_connected_count: React.PropTypes.number,
-      agents_os: React.PropTypes.arrayOf(React.PropTypes.string),
-      pipeline_count: React.PropTypes.number,
+      agents_count: React.PropTypes.number,
+      pipelines_count: React.PropTypes.number,
       invites_count: React.PropTypes.number,
-      build_count: React.PropTypes.number,
-      first_member: React.PropTypes.shape({
-        name: React.PropTypes.string,
-        email: React.PropTypes.string
-      })
+      builds_count: React.PropTypes.number,
     }).isRequired
   };
 
@@ -28,9 +22,9 @@ class Trial extends React.Component {
     return (
       <div className={classNames("Trial", `Trial--state-${this.props.trial.state}`)} title={this.props.trial.name}>
         <div style={{ position:'absolute', top:0, left:0, width: '100%', height: '100%', zIndex: 2 }}>
-          {this._chartLabel(this.props.trial.agent_count, {top:-2, left:'calc(50% - 1.25em)', borderColor: this._agentsColor(), color: this._agentsColor()}, 'Agents')}
-          {this._chartLabel(this.props.trial.invites_count, {top:'60%', right:'.25em', borderColor: this._membersColor(), color: this._membersColor()}, 'Members')}
-          {this._chartLabel(this.props.trial.build_count, {top:'60%', left:'.25em', borderColor: this._buildsColor(), color: this._buildsColor()}, 'Builds')}
+          {this._chartLabel(this.props.trial.agents_count, {top:-5, left:'calc(50% - 1.25em)', borderColor: this._agentsColor(), color: this._agentsColor()}, 'Agents')}
+          {this._chartLabel(this.props.trial.builds_count, {top:'55%', left:-2, borderColor: this._buildsColor(), color: this._buildsColor()}, 'Ran a Passing Build')}
+          {this._chartLabel(this.props.trial.invites_count, {top:'55%', right:-2, borderColor: this._membersColor(), color: this._membersColor()}, 'Invites')}
         </div>
         <div style={{ position:'absolute', top:0, left:0, zIndex: 1, width: '100%', height: '100%', transform: 'rotate(210deg)' }}>
           <PieChart
@@ -42,7 +36,7 @@ class Trial extends React.Component {
         <div className="Trial__name">
           <span>{this.props.trial.name}</span>
         </div>
-        <div className="Trial__id" style={{ color: this._idColor() }}>{this.props.trial.age}d</div>
+        <div className="Trial__age" style={{ color: this._idColor() }}>{this.props.trial.age}d</div>
       </div>
     )
   }
@@ -73,7 +67,7 @@ class Trial extends React.Component {
   }
 
   _agentsColor() {
-    return this._color(colors.agents, this.props.trial.agent_count > 0);
+    return this._color(colors.agents, this.props.trial.agents_count > 0);
   }
 
   _membersColor() {
@@ -81,7 +75,7 @@ class Trial extends React.Component {
   }
 
   _buildsColor() {
-    return this._color(colors.builds, this.props.trial.build_count > 0);
+    return this._color(colors.builds, this.props.trial.builds_count > 0);
   }
 
   _chartLabel(number, style, title) {
