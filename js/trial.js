@@ -67,7 +67,7 @@ class Trial extends React.Component {
 
   _idColor() {
     if (this.props.trial.state == 'trial_expired')
-      return '#666'
+      return '#444'
     else
       return '#aaa'
   }
