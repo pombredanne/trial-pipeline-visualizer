@@ -1,7 +1,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: "./js/entry.js",
+  entry: "./src/entry.js",
   output: {
     filename: "app.js",
     publicPath: "/"
@@ -11,6 +11,10 @@ module.exports = {
       {
         test: /\.js$/,
         loaders: ['babel']
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style','css']
       }
    ]
   },

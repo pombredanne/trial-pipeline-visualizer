@@ -9,9 +9,11 @@
     "babel-preset-stage-0": "^6.5.0",
     "classnames": "^2.2.3",
     "color": "^0.11.1",
+    "css-loader": "^0.23.1",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-transform-hmr": "^1.0.2",
+    "style-loader": "^0.13.0",
     "webpack": "^1.12.13",
     "webpack-dev-server": "^1.14.1",
     "webpack-env": "^0.8.0"
