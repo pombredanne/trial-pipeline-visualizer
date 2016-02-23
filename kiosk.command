@@ -11,4 +11,4 @@ echo
 echo "Opening Chrome in Kiosk mode..."
 
 # Starts up the vis using Caffeine, which prevents the system from sleeping
-caffeinate -s open -W "/Applications/Google Chrome.app" --args --kiosk http://localhost:8000/
+caffeinate -d open -W "/Applications/Google Chrome.app" --args --kiosk http://localhost:8000/
