@@ -19,6 +19,6 @@
     "webpack-env": "^0.8.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --content-base . --progress --colors --port 8000 --inline --hot"
+    "start": "webpack-dev-server --progress --colors --port 8000 --inline --hot"
   }
 }

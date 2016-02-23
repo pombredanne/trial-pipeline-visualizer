@@ -4,7 +4,7 @@ import colors from './colors';
 
 class TrialsLayout extends React.Component {
   static propTypes = {
-    statsUrl: React.PropTypes.string.isRequired,
+    accountsUrl: React.PropTypes.string.isRequired,
     pollSeconds: React.PropTypes.number.isRequired
   };
 
@@ -21,8 +21,12 @@ class TrialsLayout extends React.Component {
     this.fetchInterval = setInterval((() => this.fetchStats()), this.props.pollSeconds * 1000);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.fetchInterval);
+  }
+
   fetchStats() {
-    fetch(this.props.statsUrl).then((response) => {
+    fetch(this.props.accountsUrl).then((response) => {
       response.json().then((json) => {
         this.setState({
           accounts: json.accounts,
@@ -30,10 +34,6 @@ class TrialsLayout extends React.Component {
         });
       })
     })
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.fetchInterval);
   }
 
   render() {
