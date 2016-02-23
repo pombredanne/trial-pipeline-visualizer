@@ -15,6 +15,7 @@ class Trial extends React.Component {
       pipelines_count: React.PropTypes.number,
       invites_count: React.PropTypes.number,
       builds_count: React.PropTypes.number,
+      passed_builds_count: React.PropTypes.number,
     }).isRequired
   };
 
@@ -22,9 +23,9 @@ class Trial extends React.Component {
     return (
       <div className={classNames("Trial", `Trial--state-${this.props.trial.state}`)} title={this.props.trial.name}>
         <div style={{ position:'absolute', top:0, left:0, width: '100%', height: '100%', zIndex: 2 }}>
-          {this._chartLabel(this.props.trial.agents_count, {top:-5, left:'calc(50% - 1.25em)', borderColor: this._agentsColor(), color: this._agentsColor()}, 'Agents')}
-          {this._chartLabel(this.props.trial.builds_count, {top:'55%', left:-2, borderColor: this._buildsColor(), color: this._buildsColor()}, 'Ran a Passing Build')}
-          {this._chartLabel(this.props.trial.invites_count, {top:'55%', right:-2, borderColor: this._membersColor(), color: this._membersColor()}, 'Invites')}
+          {this._chartLabel(this._agentsCount(), {top:-5, left:'calc(50% - 1.25em)', borderColor: this._agentsColor(), color: this._agentsColor()}, 'Agents')}
+          {this._chartLabel(this._buildsCount(), {top:'55%', left:-2, borderColor: this._buildsColor(), color: this._buildsColor()}, 'Ran a Passing Build')}
+          {this._chartLabel(this._invitesCount(), {top:'55%', right:-2, borderColor: this._membersColor(), color: this._membersColor()}, 'Invites')}
         </div>
         <div style={{ position:'absolute', top:0, left:0, zIndex: 1, width: '100%', height: '100%', transform: 'rotate(210deg)' }}>
           <PieChart
@@ -75,7 +76,19 @@ class Trial extends React.Component {
   }
 
   _buildsColor() {
-    return this._color(colors.builds, this.props.trial.builds_count > 0);
+    return this._color(colors.builds, this.props.trial.passed_builds_count > 0);
+  }
+
+  _agentsCount() {
+    return this.props.trial.agents_count
+  }
+
+  _buildsCount() {
+    return this.props.trial.passed_builds_count != 0 ? this.props.trial.passed_builds_count : this.props.trial.builds_count
+  }
+
+  _invitesCount() {
+    return this.props.trial.invites_count
   }
 
   _chartLabel(number, style, title) {
