@@ -6,7 +6,7 @@ export default {
   builds: '#A6EA2D',
   builds_expired: '#A6EA2D',
   background: '#000',
-  inactive: '#111',
+  inactive: '#222',
   gold: '#E5BA00',
   darkGold: '#362C00'
 }
