@@ -7,6 +7,7 @@ until curl --output /dev/null --silent --head --fail http://localhost:8000/; do
   sleep 1
 done
 
+echo
 echo "Opening Chrome in Kiosk mode..."
 
 # Starts up the vis using Caffeine, which prevents the system from sleeping
