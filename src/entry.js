@@ -5,7 +5,7 @@ import './app.css';
 
 document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
-    <TrialsLayout accountsUrl={'/dashboard/trials/accounts'} pollSeconds={10} />,
+    <TrialsLayout accountsUrl={'/data/accounts'} pollSeconds={10} />,
     document.getElementById('trials-layout')
   );
 });

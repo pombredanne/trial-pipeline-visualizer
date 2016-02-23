@@ -23,15 +23,20 @@ module.exports = {
     contentBase: '.',
     // Set up a local proxy for dashboard data, so we don't need to deal with CORS, preflight requests, etc
     proxy: {
-      '/dashboard/trials/*': {
-        target: process.env.TRIAL_DASHBOARD_HOST,
+      '/data/*': {
+        target: process.env.TRIAL_DASHBOARD_ENDPOINT,
+        auth: ':' + process.env.TRIAL_DASHBOARD_SECRET,
         headers: {
-          'HOST': url.parse(process.env.TRIAL_DASHBOARD_HOST).host,
-          'X-TRIAL-DASHBOARD-SECRET': process.env.TRIAL_DASHBOARD_SECRET
+          // For some reason it doesn't do this for us? The server gets 'localhost:8000'
+          'HOST': url.parse(process.env.TRIAL_DASHBOARD_ENDPOINT).host,
+        },
+        rewrite: function(req) {
+          // `/data` is just our local proxy point, we don't want it in our request
+          req.url = req.url.replace('/data','');
         },
         bypass: function(req, res, proxyOptions) {
-          if (!process.env.TRIAL_DASHBOARD_HOST || !process.env.TRIAL_DASHBOARD_SECRET) {
-            console.log('Skipping proxy because no TRIAL_DASHBOARD_HOST and TRIAL_DASHBOARD_SECRET set');
+          if (!process.env.TRIAL_DASHBOARD_ENDPOINT || !process.env.TRIAL_DASHBOARD_SECRET) {
+            console.log('Skipping proxy because no TRIAL_DASHBOARD_ENDPOINT and TRIAL_DASHBOARD_SECRET set');
             return '/accounts.json';
           }
         }
