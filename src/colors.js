@@ -1,5 +1,5 @@
 export default {
-  agents: '#4AB9E2',
+  agents: '#FFF',
   agents_expired: '#4AB9E2',
   members: '#EA642D',
   members_expired: '#EA642D',
