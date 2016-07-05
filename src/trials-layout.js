@@ -32,7 +32,8 @@ class TrialsLayout extends React.Component {
     fetch(this.props.accountsUrl).then((response) => {
       response.json().then((json) => {
         this.setState({
-          accounts: json.accounts,
+          // Filter out accounts that haven't done anything
+          accounts: json.accounts.filter((a) => a.agents_count > 0 || a.invites_count > 0 || a.builds_count > 0),
           fetched: true
         });
       })
