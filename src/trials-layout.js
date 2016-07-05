@@ -2,6 +2,9 @@ import React from 'react';
 import Trial from './trial';
 import colors from './colors';
 
+// window.fetch for older browsers
+import 'isomorphic-fetch';
+
 class TrialsLayout extends React.Component {
   static propTypes = {
     accountsUrl: React.PropTypes.string.isRequired,
